@@ -6,6 +6,7 @@ import Home from '../converter/app/components/Home';
 import Temperature from '../converter/app/components/Temperature';
 import Mass from '../converter/app/components/Mass';
 import Length from '../converter/app/components/Length';
+import Currency from '../converter/app/components/Currency';
 
 export default class Converter extends Component {
   renderScene(route, navigator) {
@@ -18,6 +19,8 @@ export default class Converter extends Component {
         return <Mass navigator={navigator} title="mass" />;
       case 'length':
         return <Length navigator={navigator} title="length" />;
+      case 'currency':
+        return <Currency navigator={navigator} title="currency" />;
       default:
         return <Home navigator={navigator} title="home" />;
     }

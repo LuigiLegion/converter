@@ -37,6 +37,11 @@ export default class Home extends Component {
             <Text style={styles.buttonText}>Length</Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.onPressForward('currency')}>
+          <View style={styles.buttonContainee}>
+            <Text style={styles.buttonText}>Currency</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -66,6 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontSize: 40,
+    color: '#707070',
   },
 });
 

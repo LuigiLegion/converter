@@ -8,22 +8,16 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import axios from 'axios';
 
-import {
-  convertKilogram,
-  convertGram,
-  convertPound,
-  convertOunce,
-} from '../utilities/utilityFunctions';
-
-export default class Mass extends Component {
+export default class Currency extends Component {
   constructor() {
     super();
     this.state = {
-      sourceType: 'Kilogram',
+      sourceType: 'USD',
       sourceVal: '1',
-      targetType: 'Pound',
-      targetVal: '2.21',
+      targetType: 'EUR',
+      targetVal: '0.89',
     };
     this.calculate = this.calculate.bind(this);
     this.onChangeSourceType = this.onChangeSourceType.bind(this);
@@ -33,25 +27,19 @@ export default class Mass extends Component {
     this.onPressBack = this.onPressBack.bind(this);
   }
 
-  calculate() {
-    const curSourceVal = this.state.sourceVal;
-    const curTargetType = this.state.targetType;
-    if (this.state.sourceType === 'Kilogram') {
+  async calculate(source, target) {
+    try {
+      const { data } = await axios.get(
+        `https://www.freeforexapi.com/api/live?pairs=${source}${target}`
+      );
+      const curRate = data.rates[source + target].rate;
+      const curSourceVal = this.state.sourceVal;
+      const newTargetVal = String((Number(curSourceVal) * curRate).toFixed(2));
       this.setState({
-        targetVal: convertKilogram(curSourceVal, curTargetType),
+        targetVal: newTargetVal,
       });
-    } else if (this.state.sourceType === 'Gram') {
-      this.setState({
-        targetVal: convertGram(curSourceVal, curTargetType),
-      });
-    } else if (this.state.sourceType === 'Pound') {
-      this.setState({
-        targetVal: convertPound(curSourceVal, curTargetType),
-      });
-    } else if (this.state.sourceType === 'Ounce') {
-      this.setState({
-        targetVal: convertOunce(curSourceVal, curTargetType),
-      });
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -87,7 +75,7 @@ export default class Mass extends Component {
 
   onPressCalculate() {
     if (this.state.sourceVal.length && !isNaN(Number(this.state.sourceVal))) {
-      this.calculate();
+      this.calculate(this.state.sourceType, this.state.targetType);
     }
   }
 
@@ -120,20 +108,18 @@ export default class Mass extends Component {
             selectedValue={this.state.sourceType}
             style={styles.pickerContainee}
           >
-            <Picker.Item label="Pound" value="Pound" color="white" />
-            <Picker.Item label="Ounce" value="Ounce" color="white" />
-            <Picker.Item label="Kilogram" value="Kilogram" color="white" />
-            <Picker.Item label="Gram" value="Gram" color="white" />
+            <Picker.Item label="EUR" value="EUR" color="white" />
+            <Picker.Item label="USD" value="USD" color="white" />
+            <Picker.Item label="GBP" value="GBP" color="white" />
           </Picker>
           <Picker
             onValueChange={val => this.onChangeTargetType(val)}
             selectedValue={this.state.targetType}
             style={styles.pickerContainee}
           >
-            <Picker.Item label="Kilogram" value="Kilogram" color="white" />
-            <Picker.Item label="Gram" value="Gram" color="white" />
-            <Picker.Item label="Pound" value="Pound" color="white" />
-            <Picker.Item label="Ounce" value="Ounce" color="white" />
+            <Picker.Item label="USD" value="USD" color="white" />
+            <Picker.Item label="EUR" value="EUR" color="white" />
+            <Picker.Item label="GBP" value="GBP" color="white" />
           </Picker>
         </View>
         <View style={styles.subContainer}>
@@ -206,4 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('Mass', () => Mass);
+AppRegistry.registerComponent('Currency', () => Currency);

@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontSize: 20,
+    color: '#707070',
   },
 });
 
