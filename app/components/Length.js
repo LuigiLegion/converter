@@ -120,7 +120,11 @@ export default class Length extends Component {
           />
           <TextInput
             value={this.state.targetVal}
-            style={styles.textInputContainee}
+            style={
+              this.state.targetVal.length <= 5
+                ? styles.textInputContainee
+                : styles.textInputContaineeMax
+            }
             editable={false}
           />
         </View>
@@ -194,6 +198,12 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontSize: 50,
+    color: 'white',
+  },
+  textInputContaineeMax: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 25,
     color: 'white',
   },
   pickerContainee: {

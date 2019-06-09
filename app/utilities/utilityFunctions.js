@@ -2,8 +2,6 @@ const convertCelsius = (sourceVal, targetType) => {
   let targetVal;
   if (targetType === 'Fahrenheit') {
     targetVal = String(Math.round((Number(sourceVal) * 9) / 5 + 32));
-  } else if (targetType === 'Kelvin') {
-    targetVal = String(Math.round(Number(sourceVal) + 273.15));
   }
   return targetVal;
 };
@@ -12,18 +10,6 @@ const convertFahrenheit = (sourceVal, targetType) => {
   let targetVal;
   if (targetType === 'Celsius') {
     targetVal = String(Math.round(((Number(sourceVal) - 32) * 5) / 9));
-  } else if (targetType === 'Kelvin') {
-    targetVal = String(Math.round(Number(sourceVal) - (32 * 5) / 9 + 273.15));
-  }
-  return targetVal;
-};
-
-const convertKelvin = (sourceVal, targetType) => {
-  let targetVal;
-  if (targetType === 'Celsius') {
-    targetVal = String(Math.round(Number(sourceVal) - 273.15));
-  } else if (targetType === 'Fahrenheit') {
-    targetVal = String(Math.round(((Number(sourceVal) - 273.15) * 9) / 5 + 32));
   }
   return targetVal;
 };
@@ -79,15 +65,20 @@ const convertOunce = (sourceVal, targetType) => {
 const convertKilometer = (sourceVal, targetType) => {
   let targetVal;
   if (targetType === 'Meter') {
-    targetVal = String((Number(sourceVal) * 1000).toFixed(2));
+    targetVal = (Number(sourceVal) * 1000).toFixed(2);
   } else if (targetType === 'Centimeter') {
-    targetVal = String((Number(sourceVal) * 100000).toFixed(2));
+    targetVal = (Number(sourceVal) * 100000).toFixed(2);
   } else if (targetType === 'Mile') {
-    targetVal = String((Number(sourceVal) / 1.609).toFixed(2));
+    targetVal = (Number(sourceVal) / 1.609).toFixed(2);
   } else if (targetType === 'Foot') {
-    targetVal = String((Number(sourceVal) * 3280.84).toFixed(2));
+    targetVal = (Number(sourceVal) * 3280.84).toFixed(2);
   } else if (targetType === 'Inch') {
-    targetVal = String((Number(sourceVal) * 39370.079).toFixed(2));
+    targetVal = (Number(sourceVal) * 39370.079).toFixed(2);
+  }
+  if (targetVal < 0.000006) {
+    targetVal = '~ 0';
+  } else {
+    targetVal = String(targetVal);
   }
   return targetVal;
 };
@@ -95,15 +86,20 @@ const convertKilometer = (sourceVal, targetType) => {
 const convertMeter = (sourceVal, targetType) => {
   let targetVal;
   if (targetType === 'Kilometer') {
-    targetVal = String((Number(sourceVal) / 1000).toFixed(2));
+    targetVal = (Number(sourceVal) / 1000).toFixed(2);
   } else if (targetType === 'Centimeter') {
-    targetVal = String((Number(sourceVal) * 100).toFixed(2));
+    targetVal = (Number(sourceVal) * 100).toFixed(2);
   } else if (targetType === 'Mile') {
-    targetVal = String((Number(sourceVal) / 1609.344).toFixed(2));
+    targetVal = (Number(sourceVal) / 1609.344).toFixed(2);
   } else if (targetType === 'Foot') {
-    targetVal = String((Number(sourceVal) * 3.281).toFixed(2));
+    targetVal = (Number(sourceVal) * 3.281).toFixed(2);
   } else if (targetType === 'Inch') {
-    targetVal = String((Number(sourceVal) * 39.37).toFixed(2));
+    targetVal = (Number(sourceVal) * 39.37).toFixed(2);
+  }
+  if (targetVal < 0.000006) {
+    targetVal = '~ 0';
+  } else {
+    targetVal = String(targetVal);
   }
   return targetVal;
 };
@@ -111,31 +107,41 @@ const convertMeter = (sourceVal, targetType) => {
 const convertCentimeter = (sourceVal, targetType) => {
   let targetVal;
   if (targetType === 'Kilometer') {
-    targetVal = String((Number(sourceVal) / 100000).toFixed(2));
+    targetVal = (Number(sourceVal) / 100000).toFixed(5);
   } else if (targetType === 'Meter') {
-    targetVal = String((Number(sourceVal) / 100).toFixed(2));
+    targetVal = (Number(sourceVal) / 100).toFixed(2);
   } else if (targetType === 'Mile') {
-    targetVal = String((Number(sourceVal) / 160934.4).toFixed(2));
+    targetVal = (Number(sourceVal) / 160934.4).toFixed(6);
   } else if (targetType === 'Foot') {
-    targetVal = String((Number(sourceVal) / 30.48).toFixed(2));
+    targetVal = (Number(sourceVal) / 30.48).toFixed(2);
   } else if (targetType === 'Inch') {
-    targetVal = String((Number(sourceVal) / 2.54).toFixed(2));
+    targetVal = (Number(sourceVal) / 2.54).toFixed(2);
+  }
+  if (targetVal < 0.000006) {
+    targetVal = '~ 0';
+  } else {
+    targetVal = String(targetVal);
   }
   return targetVal;
 };
 
 const convertMile = (sourceVal, targetType) => {
   let targetVal;
-  if (targetType === 'Kilomter') {
-    targetVal = String((Number(sourceVal) * 1.609).toFixed(2));
+  if (targetType === 'Kilometer') {
+    targetVal = (Number(sourceVal) * 1.609).toFixed(2);
   } else if (targetType === 'Meter') {
-    targetVal = String((Number(sourceVal) * 1609.344).toFixed(2));
+    targetVal = (Number(sourceVal) * 1609.344).toFixed(2);
   } else if (targetType === 'Centimeter') {
-    targetVal = String((Number(sourceVal) * 160934.4).toFixed(2));
+    targetVal = (Number(sourceVal) * 160934.4).toFixed(2);
   } else if (targetType === 'Foot') {
-    targetVal = String((Number(sourceVal) * 5280).toFixed(2));
+    targetVal = (Number(sourceVal) * 5280).toFixed(2);
   } else if (targetType === 'Inch') {
-    targetVal = String((Number(sourceVal) * 63360).toFixed(2));
+    targetVal = (Number(sourceVal) * 63360).toFixed(2);
+  }
+  if (targetVal < 0.000006) {
+    targetVal = '~ 0';
+  } else {
+    targetVal = String(targetVal);
   }
   return targetVal;
 };
@@ -143,39 +149,50 @@ const convertMile = (sourceVal, targetType) => {
 const convertFoot = (sourceVal, targetType) => {
   let targetVal;
   if (targetType === 'Kilometer') {
-    targetVal = String((Number(sourceVal) / 3280.84).toFixed(2));
+    targetVal = (Number(sourceVal) / 3280.84).toFixed(2);
   } else if (targetType === 'Meter') {
-    targetVal = String((Number(sourceVal) / 3.281).toFixed(2));
+    targetVal = (Number(sourceVal) / 3.281).toFixed(2);
   } else if (targetType === 'Centimeter') {
-    targetVal = String((Number(sourceVal) * 30.48).toFixed(2));
+    targetVal = (Number(sourceVal) * 30.48).toFixed(2);
   } else if (targetType === 'Mile') {
-    targetVal = String((Number(sourceVal) / 5280).toFixed(2));
+    targetVal = (Number(sourceVal) / 5280).toFixed(2);
   } else if (targetType === 'Inch') {
-    targetVal = String((Number(sourceVal) * 12).toFixed(2));
+    targetVal = (Number(sourceVal) * 12).toFixed(2);
+  }
+  if (targetVal < 0.000006) {
+    targetVal = '~ 0';
+  } else {
+    targetVal = String(targetVal);
   }
   return targetVal;
 };
 
 const convertInch = (sourceVal, targetType) => {
-  let targetVal;
+  let sourceValNum = Number(sourceVal);
+  let targetValNum;
   if (targetType === 'Kilometer') {
-    targetVal = String((Number(sourceVal) / 39370.079).toFixed(2));
+    targetValNum = (sourceValNum / 39370.079).toFixed(5);
   } else if (targetType === 'Meter') {
-    targetVal = String((Number(sourceVal) / 39.37).toFixed(2));
+    targetValNum = (sourceValNum / 39.37).toFixed(2);
   } else if (targetType === 'Centimeter') {
-    targetVal = String((Number(sourceVal) * 2.54).toFixed(2));
+    targetValNum = (sourceValNum * 2.54).toFixed(2);
   } else if (targetType === 'Mile') {
-    targetVal = String((Number(sourceVal) / 63360).toFixed(2));
+    targetValNum = (sourceValNum / 63360).toFixed(5);
   } else if (targetType === 'Foot') {
-    targetVal = String((Number(sourceVal) / 12).toFixed(2));
+    targetValNum = (sourceValNum / 12).toFixed(2);
   }
-  return targetVal;
+  let targetValStr;
+  if (targetValNum < 0.000006) {
+    targetValStr = '~ 0';
+  } else {
+    targetValStr = String(targetValNum);
+  }
+  return targetValStr;
 };
 
 module.exports = {
   convertCelsius,
   convertFahrenheit,
-  convertKelvin,
   convertKilogram,
   convertGram,
   convertPound,

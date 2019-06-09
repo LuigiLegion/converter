@@ -12,7 +12,6 @@ import {
 import {
   convertCelsius,
   convertFahrenheit,
-  convertKelvin,
 } from '../utilities/utilityFunctions';
 
 export default class Temperature extends Component {
@@ -42,10 +41,6 @@ export default class Temperature extends Component {
     } else if (this.state.sourceType === 'Fahrenheit') {
       this.setState({
         targetVal: convertFahrenheit(curSourceVal, curTargetType),
-      });
-    } else if (this.state.sourceType === 'Kelvin') {
-      this.setState({
-        targetVal: convertKelvin(curSourceVal, curTargetType),
       });
     }
   }
@@ -115,18 +110,16 @@ export default class Temperature extends Component {
             selectedValue={this.state.sourceType}
             style={styles.pickerContainee}
           >
-            <Picker.Item label="Fahrenheit" value="Fahrenheit" color="white" />
             <Picker.Item label="Celsius" value="Celsius" color="white" />
-            <Picker.Item label="Kelvin" value="Kelvin" color="white" />
+            <Picker.Item label="Fahrenheit" value="Fahrenheit" color="white" />
           </Picker>
           <Picker
             onValueChange={val => this.onChangeTargetType(val)}
             selectedValue={this.state.targetType}
             style={styles.pickerContainee}
           >
-            <Picker.Item label="Celsius" value="Celsius" color="white" />
             <Picker.Item label="Fahrenheit" value="Fahrenheit" color="white" />
-            <Picker.Item label="Kelvin" value="Kelvin" color="white" />
+            <Picker.Item label="Celsius" value="Celsius" color="white" />
           </Picker>
         </View>
         <View style={styles.subContainer}>

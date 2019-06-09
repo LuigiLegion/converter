@@ -15,9 +15,12 @@ export default class Currency extends Component {
     super();
     this.state = {
       sourceType: 'USD',
-      sourceVal: '1',
+      sourceVal: '0.00',
       targetType: 'EUR',
-      targetVal: '0.89',
+      targetVal: '0.00',
+      curRate: 0,
+      curRateDate: 0,
+      showRateAndDate: false,
     };
     this.calculate = this.calculate.bind(this);
     this.onChangeSourceType = this.onChangeSourceType.bind(this);
@@ -32,11 +35,17 @@ export default class Currency extends Component {
       const { data } = await axios.get(
         `https://www.freeforexapi.com/api/live?pairs=${source}${target}`
       );
-      const curRate = data.rates[source + target].rate;
+      const curRate = data.rates[source + target].rate.toFixed(2);
+      const curRateDate = String(
+        new Date(Date.now() - data.rates[source + target].timestamp)
+      ).slice(4, -23);
       const curSourceVal = this.state.sourceVal;
       const newTargetVal = String((Number(curSourceVal) * curRate).toFixed(2));
       this.setState({
         targetVal: newTargetVal,
+        curRate,
+        curRateDate,
+        showRateAndDate: true,
       });
     } catch (error) {
       console.error(error);
@@ -74,7 +83,11 @@ export default class Currency extends Component {
   }
 
   onPressCalculate() {
-    if (this.state.sourceVal.length && !isNaN(Number(this.state.sourceVal))) {
+    if (
+      this.state.sourceVal.length &&
+      !isNaN(Number(this.state.sourceVal)) &&
+      Number(this.state.sourceVal)
+    ) {
       this.calculate(this.state.sourceType, this.state.targetType);
     }
   }
@@ -108,18 +121,16 @@ export default class Currency extends Component {
             selectedValue={this.state.sourceType}
             style={styles.pickerContainee}
           >
-            <Picker.Item label="EUR" value="EUR" color="white" />
             <Picker.Item label="USD" value="USD" color="white" />
-            <Picker.Item label="GBP" value="GBP" color="white" />
+            <Picker.Item label="EUR" value="EUR" color="white" />
           </Picker>
           <Picker
             onValueChange={val => this.onChangeTargetType(val)}
             selectedValue={this.state.targetType}
             style={styles.pickerContainee}
           >
-            <Picker.Item label="USD" value="USD" color="white" />
             <Picker.Item label="EUR" value="EUR" color="white" />
-            <Picker.Item label="GBP" value="GBP" color="white" />
+            <Picker.Item label="USD" value="USD" color="white" />
           </Picker>
         </View>
         <View style={styles.subContainer}>
@@ -140,6 +151,21 @@ export default class Currency extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        {this.state.showRateAndDate ? (
+          <View style={styles.subContainer}>
+            <Text style={styles.textContainee}>{`Rate:\n${
+              this.state.curRate
+            }`}</Text>
+            <Text style={styles.textContainee}>{`Last Updated:\n${
+              this.state.curRateDate
+            }`}</Text>
+          </View>
+        ) : (
+          <View style={styles.subContainer}>
+            <Text style={styles.textContainee}>{`\n`}</Text>
+            <Text style={styles.textContainee}>{`\n`}</Text>
+          </View>
+        )}
       </View>
     );
   }
@@ -189,6 +215,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: '#707070',
+  },
+  textContainee: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 20,
+    color: 'white',
   },
 });
 
