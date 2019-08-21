@@ -1,8 +1,8 @@
-# Converter
+# Convrtr
 
 # Description:
 
-Converter is a native app that allows users to convert temperature, mass, length, and currency.
+Convrtr is a native app that allows users to convert temperature, mass, length, and currency.
 
 # Tech Stack:
 
