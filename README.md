@@ -1,7 +1,5 @@
 # Convertr
 
-### Screenshots:
-
 ![Convertr Screenshot](./images/screenshot.png)
 
 ### Video Presentation:
