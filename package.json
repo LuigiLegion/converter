@@ -1,7 +1,11 @@
 {
-  "name": "converter",
-  "version": "0.0.1",
+  "name": "convertr",
+  "version": "1.0.0",
+  "description": "",
   "private": true,
+  "author": "Tal Luigi",
+  "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
